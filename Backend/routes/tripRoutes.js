@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Trip = require("../models/Trip");
 
-// GET all trips
 router.get("/", async (req, res) => {
   try {
     const trips = await Trip.find().populate("userId");
@@ -12,7 +11,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// POST create new trip
 router.post("/", async (req, res) => {
   try {
     if (!req.body.tripName || !req.body.userId) {
@@ -27,7 +25,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// PUT update trip
 router.put("/:id", async (req, res) => {
   try {
     const updatedTrip = await Trip.findByIdAndUpdate(req.params.id, req.body, {

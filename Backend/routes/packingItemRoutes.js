@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const PackingItem = require("../models/PackingItem");
 
-// GET all packing items
 router.get("/", async (req, res) => {
   try {
     const items = await PackingItem.find().populate("tripId");
@@ -12,7 +11,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-// POST create packing item with validation
 router.post("/", async (req, res) => {
   try {
     if (!req.body.name || !req.body.tripId) {
@@ -27,7 +25,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// PUT update packing item
 router.put("/:id", async (req, res) => {
   try {
     const updatedItem = await PackingItem.findByIdAndUpdate(req.params.id, req.body, {
