@@ -35,11 +35,26 @@ router.post("/", async (req, res) => {
 // PUT update user
 router.put("/:id", async (req, res) => {
   try {
+    // Check for duplicate email (excluding current user)
+    if (req.body.email) {
+      const existingUser = await User.findOne({ 
+        email: req.body.email, 
+        _id: { $ne: req.params.id } // exclude current user
+      });
+      if (existingUser) {
+        return res.status(409).json({ message: "User with this email already exists" });
+      }
+    }
+
     const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
     });
-    if (!updatedUser) return res.status(404).json({ message: "User not found" });
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
     res.json(updatedUser);
   } catch (error) {
     res.status(400).json({ message: "Failed to update user", error: error.message });
