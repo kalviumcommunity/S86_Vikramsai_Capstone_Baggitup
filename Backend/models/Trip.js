@@ -1,24 +1,12 @@
-module.exports = (sequelize, DataTypes) => {
-  const Trip = sequelize.define("Trip", {
-    tripName: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    destination: DataTypes.STRING,
-    startDate: DataTypes.DATE,
-    endDate: DataTypes.DATE,
-    notes: DataTypes.TEXT
-  });
+const mongoose = require("mongoose");
 
-  Trip.associate = (models) => {
-    Trip.belongsTo(models.User, {
-      foreignKey: "userId"
-    });
-    Trip.hasMany(models.PackingItem, {
-      foreignKey: "tripId",
-      onDelete: "CASCADE"
-    });
-  };
+const tripSchema = new mongoose.Schema({
+  tripName: { type: String, required: true },
+  destination: String,
+  startDate: Date,
+  endDate: Date,
+  notes: String,
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" }
+});
 
-  return Trip;
-};
+module.exports = mongoose.model("Trip", tripSchema);

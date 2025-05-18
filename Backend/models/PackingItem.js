@@ -1,25 +1,11 @@
-module.exports = (sequelize, DataTypes) => {
-  const PackingItem = sequelize.define("PackingItem", {
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    category: DataTypes.STRING,
-    isPacked: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    },
-    quantity: {
-      type: DataTypes.INTEGER,
-      defaultValue: 1
-    }
-  });
+const mongoose = require("mongoose");
 
-  PackingItem.associate = (models) => {
-    PackingItem.belongsTo(models.Trip, {
-      foreignKey: "tripId"
-    });
-  };
+const packingItemSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  category: String,
+  isPacked: { type: Boolean, default: false },
+  quantity: { type: Number, default: 1 },
+  tripId: { type: mongoose.Schema.Types.ObjectId, ref: "Trip" }
+});
 
-  return PackingItem;
-};
+module.exports = mongoose.model("PackingItem", packingItemSchema);
