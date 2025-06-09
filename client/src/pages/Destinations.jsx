@@ -1,3 +1,4 @@
+//Destination
 import React from "react";
 
 function Destinations() {
