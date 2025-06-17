@@ -1,16 +1,34 @@
+// Signup.jsx
 import React from "react";
 
 export default function Signup() {
   return (
-    <div className="flex justify-center items-center h-screen">
-      <div className="bg-gray-200 p-8 rounded w-96">
-        <h2 className="text-center font-bold mb-6">Create a New Account</h2>
-        <input type="text" placeholder="Enter your full name" className="w-full p-2 mb-4 border" />
-        <input type="email" placeholder="Enter your email" className="w-full p-2 mb-4 border" />
-        <input type="password" placeholder="Enter your password" className="w-full p-2 mb-4 border" />
-        <input type="password" placeholder="Confirm your password" className="w-full p-2 mb-4 border" />
-        <button className="bg-black text-white w-full py-2">Sign Up</button>
-        <p className="text-center text-sm mt-4">Already have an account? <a href="/login" className="underline">Login</a></p>
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#E1E2E1] via-white to-[#E1E2E1] p-4">
+      <div className="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md">
+        <h2 className="text-4xl font-bold text-center text-[#0D1B2A] mb-6">Create Account</h2>
+        <form className="space-y-6">
+          <input
+            type="text"
+            placeholder="Username"
+            className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1B3B6F]"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1B3B6F]"
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1B3B6F]"
+          />
+          <button
+            type="submit"
+            className="w-full bg-[#34495E] text-white py-4 rounded-xl hover:bg-[#1B3B6F] transition text-lg font-semibold"
+          >
+            Sign Up
+          </button>
+        </form>
       </div>
     </div>
   );
