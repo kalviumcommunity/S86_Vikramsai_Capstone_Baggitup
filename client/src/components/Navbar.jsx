@@ -1,37 +1,17 @@
+// src/components/Navbar.jsx
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const Navbar = () => {
-  const { pathname } = useLocation();
-
-  const navItems = [
-    { label: "Home", path: "/" },
-    { label: "Destinations", path: "/destinations" },
-    { label: "Tickets", path: "/tickets" },
-    { label: "Login", path: "/login" },
-    { label: "Signup", path: "/signup" },
-  ];
-
+export default function Navbar() {
   return (
-    <nav className="bg-[#34495E] p-4 shadow-lg">
-      <div className="container mx-auto flex justify-between items-center">
-        <h1 className="text-white text-xl font-bold">Baggitup</h1>
-        <div className="space-x-4">
-          {navItems.map((item) => (
-            <Link
-              key={item.path}
-              to={item.path}
-              className={`text-white px-3 py-2 rounded-md hover:bg-[#1B3B6F] ${
-                pathname === item.path ? "bg-[#1B3B6F]" : ""
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </div>
-      </div>
+    <nav className="bg-[#0D1B2A] text-white p-4 shadow-md">
+      <ul className="flex gap-6 justify-center text-lg font-medium">
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/destinations">Destinations</Link></li>
+        <li><Link to="/tickets">Tickets</Link></li>
+        <li><Link to="/login">Login</Link></li>
+        <li><Link to="/signup">Signup</Link></li>
+      </ul>
     </nav>
   );
-};
-
-export default Navbar;
+}
