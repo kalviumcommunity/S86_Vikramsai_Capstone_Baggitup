@@ -1,34 +1,32 @@
-// Signup.jsx
-import React from "react";
+// ✅ src/pages/Signup.jsx
+import { Link } from "react-router-dom";
 
 export default function Signup() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#E1E2E1] via-white to-[#E1E2E1] p-4">
-      <div className="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md">
-        <h2 className="text-4xl font-bold text-center text-[#0D1B2A] mb-6">Create Account</h2>
-        <form className="space-y-6">
-          <input
-            type="text"
-            placeholder="Username"
-            className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1B3B6F]"
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1B3B6F]"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1B3B6F]"
-          />
-          <button
-            type="submit"
-            className="w-full bg-[#34495E] text-white py-4 rounded-xl hover:bg-[#1B3B6F] transition text-lg font-semibold"
-          >
-            Sign Up
-          </button>
-        </form>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+      <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md">
+        <h2 className="text-2xl font-bold mb-6 text-center">Sign Up</h2>
+        <input
+          type="text"
+          placeholder="Full Name"
+          className="w-full border p-2 rounded mb-4 focus:outline-none"
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          className="w-full border p-2 rounded mb-4 focus:outline-none"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="w-full border p-2 rounded mb-4 focus:outline-none"
+        />
+        <button className="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">
+          Sign Up
+        </button>
+        <p className="text-sm mt-4 text-center">
+          Already have an account? <Link to="/login" className="text-green-600">Login</Link>
+        </p>
       </div>
     </div>
   );

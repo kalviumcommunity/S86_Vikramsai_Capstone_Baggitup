@@ -1,31 +1,27 @@
-
-
-// Login.jsx
-import React from "react";
+// ✅ src/pages/Login.jsx
+import { Link } from "react-router-dom";
 
 export default function Login() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#34495E] via-[#1B3B6F] to-[#0D1B2A] p-4">
-      <div className="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md">
-        <h2 className="text-4xl font-bold text-center text-[#0D1B2A] mb-6">Login</h2>
-        <form className="space-y-6">
-          <input
-            type="email"
-            placeholder="Email"
-            className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1B3B6F]"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            className="w-full p-4 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#1B3B6F]"
-          />
-          <button
-            type="submit"
-            className="w-full bg-[#34495E] text-white py-4 rounded-xl hover:bg-[#0D1B2A] transition text-lg font-semibold"
-          >
-            Sign In
-          </button>
-        </form>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+      <div className="w-full max-w-md bg-white p-8 rounded-xl shadow-md">
+        <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
+        <input
+          type="email"
+          placeholder="Email"
+          className="w-full border p-2 rounded mb-4 focus:outline-none"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          className="w-full border p-2 rounded mb-4 focus:outline-none"
+        />
+        <button className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+          Login
+        </button>
+        <p className="text-sm mt-4 text-center">
+          Don’t have an account? <Link to="/signup" className="text-blue-600">Sign up</Link>
+        </p>
       </div>
     </div>
   );
