@@ -10,13 +10,13 @@ dotenv.config();
 
 const app = express();
 
-// MongoDB connection
+// MongoDB Connection
 mongoose.connect(process.env.DB_URL)
   .then(() => {
-    console.log("MongoDB is connected");
+    console.log("✅ MongoDB is connected");
   })
   .catch((error) => {
-    console.error("Failed to connect to MongoDB:", error.message);
+    console.error("❌ Failed to connect to MongoDB:", error.message);
   });
 
 // Middleware
@@ -24,7 +24,7 @@ app.use(express.json());
 
 // Root route
 app.get("/", (req, res) => {
-  res.send("Welcome to the Baggitup Backend API!");
+  res.send("🌍 Welcome to the Baggitup Backend API!");
 });
 
 // Routes
@@ -32,19 +32,17 @@ app.use("/api/users", UserRoutes);
 app.use("/api/trips", TripRoutes);
 app.use("/api/packing-items", PackingItemRoutes);
 
-// Temporary route to test entity relationships
+// Test relationships route
 app.get("/api/test/relationships", async (req, res) => {
   const Trip = require("./models/Trip");
   const PackingItem = require("./models/PackingItem");
 
   try {
-    // Populate userId on trips, only select name and email (no password or __v)
     const trips = await Trip.find().populate({
       path: "userId",
       select: "name email"
     });
 
-    // Populate tripId and inside it populate userId, selecting only relevant fields
     const items = await PackingItem.find().populate({
       path: "tripId",
       select: "tripName destination startDate endDate notes userId",
@@ -54,7 +52,6 @@ app.get("/api/test/relationships", async (req, res) => {
       }
     });
 
-    // Simplify response for cleaner output
     const simplifiedTrips = trips.map(trip => ({
       _id: trip._id,
       tripName: trip.tripName,
@@ -97,12 +94,8 @@ app.get("/api/test/relationships", async (req, res) => {
   }
 });
 
-
-// Start server
+// Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
-
-
-//To start the server we are using this 
