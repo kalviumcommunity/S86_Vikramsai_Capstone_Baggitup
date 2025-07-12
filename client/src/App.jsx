@@ -1,21 +1,26 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Home from './pages/Home';
-import Destination from './pages/Destination';
-import Tickets from './pages/Tickets';
+import './App.css';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/destinations" element={<Destination />} />
-        <Route path="/tickets" element={<Tickets />} />
-      </Routes>
-    </Router>
+    <div className="container">
+      <header className="header">
+        <h1 className="title">Welcome to Baggitup ✈️</h1>
+        <p className="subtitle">Your smart travel packing and planning assistant</p>
+      </header>
+
+      <section className="hero">
+        <img
+          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+          alt="Travel"
+          className="hero-image"
+        />
+        <div className="hero-text">
+          <h2>Plan Smart, Pack Light</h2>
+          <p>Discover personalized packing checklists, destination tips, and stress-free trip planning – all in one place.</p>
+          <button className="cta-button">Get Started</button>
+        </div>
+      </section>
+    </div>
   );
 }
 
