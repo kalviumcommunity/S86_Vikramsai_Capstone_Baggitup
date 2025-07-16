@@ -1,11 +1,29 @@
+import { useEffect, useState } from 'react';
 import './App.css';
 
 function App() {
+  const [backendMessage, setBackendMessage] = useState('Connecting to backend...');
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/test/relationships') 
+      .then((res) => res.json())
+      .then((data) => {
+        const tripsCount = data.trips?.length || 0;
+        const itemsCount = data.items?.length || 0;
+        setBackendMessage(`Connected! ${tripsCount} trips, ${itemsCount} items loaded.`);
+      })
+      .catch((err) => {
+        console.error('API fetch error:', err);
+        setBackendMessage('Failed to connect to backend');
+      });
+  }, []);
+
   return (
     <div className="container">
       <header className="header">
         <h1 className="title">Welcome to Baggitup ✈️</h1>
         <p className="subtitle">Your smart travel packing and planning assistant</p>
+        <p style={{ color: 'green', fontWeight: 'bold' }}>{backendMessage}</p>
       </header>
 
       <section className="hero">

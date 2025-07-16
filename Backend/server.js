@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const dotenv = require("dotenv");
 
 const UserRoutes = require("./routes/userRoutes");
@@ -10,41 +11,48 @@ dotenv.config();
 
 const app = express();
 
-// MongoDB connection
-mongoose.connect(process.env.DB_URL)
+// ✅ MongoDB connection
+mongoose.connect(process.env.DB_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
   .then(() => {
-    console.log("MongoDB is connected");
+    console.log("✅ MongoDB is connected");
   })
   .catch((error) => {
-    console.error("Failed to connect to MongoDB:", error.message);
+    console.error("❌ Failed to connect to MongoDB:", error.message);
   });
 
-// Middleware
+// ✅ Middleware
 app.use(express.json());
 
-// Root route
+// ✅ CORS setup (only once)
+app.use(cors({
+  origin: "http://localhost:5173", // your frontend origin
+  credentials: true               // if using cookies/auth
+}));
+
+// ✅ Root route
 app.get("/", (req, res) => {
   res.send("Welcome to the Baggitup Backend API!");
 });
 
-// Routes
+// ✅ Main API routes
 app.use("/api/users", UserRoutes);
 app.use("/api/trips", TripRoutes);
 app.use("/api/packing-items", PackingItemRoutes);
 
-// Temporary route to test entity relationships
+// ✅ Test route to check relationships
 app.get("/api/test/relationships", async (req, res) => {
   const Trip = require("./models/Trip");
   const PackingItem = require("./models/PackingItem");
 
   try {
-    // Populate userId on trips, only select name and email (no password or __v)
     const trips = await Trip.find().populate({
       path: "userId",
       select: "name email"
     });
 
-    // Populate tripId and inside it populate userId, selecting only relevant fields
     const items = await PackingItem.find().populate({
       path: "tripId",
       select: "tripName destination startDate endDate notes userId",
@@ -54,7 +62,6 @@ app.get("/api/test/relationships", async (req, res) => {
       }
     });
 
-    // Simplify response for cleaner output
     const simplifiedTrips = trips.map(trip => ({
       _id: trip._id,
       tripName: trip.tripName,
@@ -65,7 +72,7 @@ app.get("/api/test/relationships", async (req, res) => {
       user: trip.userId ? {
         _id: trip.userId._id,
         name: trip.userId.name,
-        email: trip.userId.email,
+        email: trip.userId.email
       } : null
     }));
 
@@ -85,7 +92,7 @@ app.get("/api/test/relationships", async (req, res) => {
         user: item.tripId.userId ? {
           _id: item.tripId.userId._id,
           name: item.tripId.userId.name,
-          email: item.tripId.userId.email,
+          email: item.tripId.userId.email
         } : null
       } : null
     }));
@@ -97,9 +104,8 @@ app.get("/api/test/relationships", async (req, res) => {
   }
 });
 
-
-// Start server
+// ✅ Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
